@@ -20,7 +20,7 @@ public class MelsecController {
         new Thread(() -> {
             try{
                 log.info("Start McProtocol TCP");
-                plc = new MelsecPlcHandler("localhost", 5000);
+                plc = new MelsecPlcHandler("localhost", 5001);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -28,11 +28,9 @@ public class MelsecController {
     }
 
     @GetMapping("/send")
-    public ResponseEntity<?> sendMessage(HttpServletRequest request){
+    public ResponseEntity<?> sendMessage(){
         try{
-            String data = "Hello PLC";
-
-            plc.sendCommand(data);
+            plc.sendCommand();
             return new ResponseEntity<>("success", HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -41,6 +39,6 @@ public class MelsecController {
 
     @PreDestroy
     private void destroy(){
-        log.info("Destroy McProtocol TCP { Port: 5000 }");
+        log.info("Destroy McProtocol TCP { Port: 5001 }");
     }
 }

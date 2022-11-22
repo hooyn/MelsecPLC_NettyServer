@@ -22,6 +22,7 @@ import twim.melsecplc.core.message.e.Frame3EAsciiCommand;
 import twim.melsecplc.core.message.e.FrameECommand;
 import twim.melsecplc.core.message.e.FrameEResponse;
 
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
@@ -42,14 +43,9 @@ public class MelsecPlcHandler {
     private final Queue<FrameECommand> requestQueue = new LinkedList<>();
     private final Queue<FrameEResponse> responseQueue = new LinkedList<>();
 
-    private volatile int currentValue = 0;
-    private volatile int nitrogenValue = 0;
-    private volatile int vaccumValue = 0;
-
-    @Setter
-    private boolean RFID;
-    @Setter
-    private String macAddress = "";
+//    private volatile int currentValue = 0;
+//    private volatile int nitrogenValue = 0;
+//    private volatile int vaccumValue = 0;
 
     private final Lock lock = new ReentrantLock();
 
@@ -97,7 +93,7 @@ public class MelsecPlcHandler {
             data.writeBoolean(true);
 
             try {
-                log.info(batchRead("R6110", 1).get());
+                    log.info(batchRead("D45010", 1).get());
             } catch (InterruptedException | ExecutionException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -107,17 +103,17 @@ public class MelsecPlcHandler {
 
             while (true){
                 try {
-                    // this.currentValue = Integer.valueOf(batchRead("R6110", 1).get());
-                    // this.nitrogenValue = batchRead("R6110", 1).get();
-                    // this.vaccumValue = batchRead("R6110", 1).get();
+                    String isAlive = batchRead("D45000", 1).get();
+                    log.info(isAlive);
 
+                    // TODO: 2022-11-22 PLC의 D45000 값을 몇초에 한번 씩 변경할지에 따라 정하기
                     Thread.sleep(1000);
 
-                    if (!isConnected()){
-                        this.currentValue = 0;
-                        this.nitrogenValue = 0;
-                        this.vaccumValue = 0;
+//                    if(isAlive.equals("TIMEOUT")){
+//                        // logic
+//                    }
 
+                    if (!isConnected()){
                         connect(bootstrap);
                     }
                 } catch (InterruptedException e) {
@@ -132,27 +128,6 @@ public class MelsecPlcHandler {
 
         this.plcThread.setDaemon(true);
         this.plcThread.start();
-
-        // while (true){
-        //     try {
-        //         ByteBuf data = Unpooled.buffer();
-        //         data.writeBoolean(false);
-        //         data.writeBoolean(true);
-        //         data.writeBoolean(false);
-        //         data.writeBoolean(false);
-        //         data.writeBoolean(true);
-        //         data.writeBoolean(false);
-        //         data.writeBoolean(true);
-        //         data.writeBoolean(true);
-
-        //         // log.info(batchRead("R6110", 1).get());
-        //         log.info(batchWrite("M100", 1, data).get());
-            
-        //         Thread.sleep(3000);
-        //     } catch (Exception e) {
-
-        //     }
-        // }
     }
 
     public void connect(Bootstrap bootstrap){
@@ -165,7 +140,7 @@ public class MelsecPlcHandler {
             log.error(e.getMessage());
         } catch (Exception e) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException ee) {
                 log.warn("connect " + ee.getMessage());
             }
@@ -175,7 +150,6 @@ public class MelsecPlcHandler {
     }
 
     public void remove(){
-
         if (this.plcThread != null && !this.plcThread.isInterrupted())
             this.plcThread.interrupt();
         this.workerGroup.shutdownGracefully().awaitUninterruptibly();
@@ -245,13 +219,13 @@ public class MelsecPlcHandler {
                                 return ByteBufUtil.hexDump(response.getData());
                         }
 
-                        // TODO - Timeout 처리
+                        // TODO: 2022-11-22 TIME OUT 필요없을 시 제거
                         if ((System.currentTimeMillis() - start) > 1000)
-                            return "Timeout";
+                            return "TIMEOUT"; // return "TIMEOUT";
 
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
-                        return "Error";
+                        return "Error: " + e.getMessage();
                     }
                 }
             } finally {
@@ -264,20 +238,36 @@ public class MelsecPlcHandler {
 
     /**
      * PLC 에 명령 전달
-     * @param data
      * todo: 추후에 data format 맞춰서 보내기
      */
-    public void sendCommand(String data){
-        ByteBuf buf = Unpooled.copiedBuffer(data, CharsetUtil.UTF_8);
-        ChannelFuture cf = channel.writeAndFlush(buf);
+    public void sendCommand(){
 
-        cf.addListener((ChannelFutureListener) channelFuture -> {
-            if(channelFuture.isSuccess()){
-                System.out.println("write success");
-            } else {
-                System.out.println("write error");
-                channelFuture.cause().printStackTrace();
-            }
-        });
+        ByteBuf data = Unpooled.buffer();
+        data.writeBoolean(false);
+        data.writeBoolean(true);
+        data.writeBoolean(false);
+        data.writeBoolean(false);
+        data.writeBoolean(true);
+        data.writeBoolean(false);
+        data.writeBoolean(true);
+        data.writeBoolean(true);
+
+        log.info("Send Data ByteBuf: " + data);
+
+        try {
+            ChannelFuture cf = channel.writeAndFlush(data);
+            cf.addListener((ChannelFutureListener) channelFuture -> {
+                if(channelFuture.isSuccess()){
+                    log.info("write success");
+                    log.info(batchWrite("D45500", 1, data).get());
+                } else {
+                    log.error("write error");
+                    channelFuture.cause().printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
