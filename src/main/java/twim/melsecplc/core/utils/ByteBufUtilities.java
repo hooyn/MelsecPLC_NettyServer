@@ -60,9 +60,6 @@ public class ByteBufUtilities {
             buf.readBytes(bytes);
             String hex = new String(bytes, StandardCharsets.US_ASCII);
             result.writeBytes(hex.getBytes());
-
-//            System.out.println("(byte) Integer.parseInt(hex, 16): " + (byte) Integer.parseInt(hex, 16));
-//            result.writeByte((byte) Integer.parseInt(hex, 16));
         }
         return result;
     }
