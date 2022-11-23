@@ -47,6 +47,27 @@ public class ByteBufUtilities {
         return result;
     }
 
+    public static ByteBuf readAsciiBufCustom(ByteBuf buf) {
+        int remaining = buf.readableBytes(); //this.writerIndex - this.readerIndex
+        if (remaining < 0) {
+            return null;
+        }
+
+        ByteBuf result = Unpooled.buffer(remaining);
+
+        while (buf.readableBytes() > 0) {
+            byte[] bytes = new byte[2];
+            buf.readBytes(bytes);
+            String hex = new String(bytes, StandardCharsets.US_ASCII);
+            result.writeBytes(hex.getBytes());
+
+//            System.out.println("(byte) Integer.parseInt(hex, 16): " + (byte) Integer.parseInt(hex, 16));
+//            result.writeByte((byte) Integer.parseInt(hex, 16));
+        }
+        return result;
+    }
+
+
     public static byte[] readAllBytes(ByteBuf buf) {
         int length = buf.readableBytes();
         if (length > 0) {

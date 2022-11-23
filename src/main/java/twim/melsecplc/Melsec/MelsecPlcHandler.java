@@ -26,7 +26,6 @@ import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
@@ -43,10 +42,6 @@ public class MelsecPlcHandler {
     private final Queue<FrameECommand> requestQueue = new LinkedList<>();
     private final Queue<FrameEResponse> responseQueue = new LinkedList<>();
 
-//    private volatile int currentValue = 0;
-//    private volatile int nitrogenValue = 0;
-//    private volatile int vaccumValue = 0;
-
     private final Lock lock = new ReentrantLock();
 
     public MelsecPlcHandler(String ip, int port){
@@ -57,7 +52,7 @@ public class MelsecPlcHandler {
         bootstrap.group(this.workerGroup)
                     .channel(NioSocketChannel.class)
                     .remoteAddress(this.melsecClientConfig.getAddress(), this.melsecClientConfig.getPort())
-                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000)
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1500)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_LINGER, 0)
                     .option(ChannelOption.SO_KEEPALIVE, true)
@@ -70,8 +65,8 @@ public class MelsecPlcHandler {
                             ChannelPipeline pipeline = ch.pipeline();
                             // handler setting
                             pipeline.addLast(ClientFrameEMessageEncoder.INSTANCE);
-                            pipeline.addLast(new Frame3EAsciiByteDecoder());
                             pipeline.addLast(new ClientFrame3EAsciiMessageDecoder());
+                            pipeline.addLast(new Frame3EAsciiByteDecoder());
                             pipeline.addLast(new NettySocketClientHandler(MelsecPlcHandler.this));
                         }
                     });
@@ -82,44 +77,20 @@ public class MelsecPlcHandler {
 
             connect(bootstrap);
 
-            ByteBuf data = Unpooled.buffer();
-            data.writeBoolean(false);
-            data.writeBoolean(true);
-            data.writeBoolean(false);
-            data.writeBoolean(false);
-            data.writeBoolean(true);
-            data.writeBoolean(false);
-            data.writeBoolean(true);
-            data.writeBoolean(true);
-
-            try {
-                    log.info(batchRead("D45010", 1).get());
-            } catch (InterruptedException | ExecutionException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-
             log.info("Connected to PLC({})...", ip);
+            //log.info(batchRead("D45010", 1).get());
 
             while (true){
                 try {
-                    String isAlive = batchRead("D45000", 1).get();
-                    log.info(isAlive);
+                    batchRead("D45000", 2).get();
 
                     // TODO: 2022-11-22 PLC의 D45000 값을 몇초에 한번 씩 변경할지에 따라 정하기
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
 
-//                    if(isAlive.equals("TIMEOUT")){
-//                        // logic
-//                    }
 
                     if (!isConnected()){
                         connect(bootstrap);
                     }
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
-
-                    break;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -134,7 +105,6 @@ public class MelsecPlcHandler {
 
         try {
             ChannelFuture f = bootstrap.connect().sync();
-
             this.channel = f.channel();
         } catch (InterruptedException e) {
             log.error(e.getMessage());
@@ -206,28 +176,26 @@ public class MelsecPlcHandler {
 
             try {
                 while (true){
-                    try {
-                        if (this.responseQueue.size() > 0){
-                            log.info(this.melsecClientConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
-                                    + ", Thread- " + Thread.currentThread().getName());
-                            
-                            FrameEResponse response = this.responseQueue.poll();
+                    if (this.responseQueue.size() > 0){
+                        log.info(this.melsecClientConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
+                                + ", Thread- " + Thread.currentThread().getName());
 
-                            if (response.getData() == null)
-                                return "";
-                            else
-                                return ByteBufUtil.hexDump(response.getData());
-                        }
+                        FrameEResponse response = this.responseQueue.poll();
 
-                        // TODO: 2022-11-22 TIME OUT 필요없을 시 제거
-                        if ((System.currentTimeMillis() - start) > 1000)
-                            return "TIMEOUT"; // return "TIMEOUT";
-
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        return "Error: " + e.getMessage();
+                        if (response.getData() == null)
+                            return "";
+                        else
+                            return ByteBufUtil.hexDump(response.getData());
                     }
+
+                    // TODO: 2022-11-22 TIME OUT 필요없을 시 제거
+                    if ((System.currentTimeMillis() - start) > 1)
+                        return "TIMEOUT";
+
+                    Thread.sleep(1);
                 }
+            } catch (InterruptedException e) {
+                return "Error: " + e.getMessage();
             } finally {
                 this.lock.unlock();
             }

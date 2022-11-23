@@ -1,0 +1,158 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2022-11-23 11:37:04.365  INFO 66908 --- [           main] twim.melsecplc.MelsecPlcApplication      : Starting MelsecPlcApplication v0.0.1-SNAPSHOT using Java 17.0.5 on DESKTOP-GJRCHMS with PID 66908 (C:\Users\user\Desktop\melsecPLC_netty_server_ver_0.0.7.jar started by user in C:\Program Files\Java\jdk-17.0.5)
+2022-11-23 11:37:04.366  INFO 66908 --- [           main] twim.melsecplc.MelsecPlcApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-11-23 11:37:05.012  INFO 66908 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-11-23 11:37:05.012  INFO 66908 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-11-23 11:37:05.012  INFO 66908 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2022-11-23 11:37:05.059  INFO 66908 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-11-23 11:37:05.059  INFO 66908 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 659 ms
+2022-11-23 11:37:05.106  INFO 66908 --- [       Thread-1] twim.melsecplc.Melsec.MelsecController   : Start McProtocol TCP
+2022-11-23 11:37:05.200  INFO 66908 --- [-100.100.100.20] twim.melsecplc.Melsec.MelsecPlcHandler   : Attempt connect to PLC(100.100.100.20)...
+2022-11-23 11:37:05.302  INFO 66908 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-23 11:37:05.315  INFO 66908 --- [           main] twim.melsecplc.MelsecPlcApplication      : Started MelsecPlcApplication in 1.221 seconds (JVM running for 1.47)
+2022-11-23 11:37:05.330  INFO 66908 --- [-100.100.100.20] twim.melsecplc.Melsec.MelsecPlcHandler   : Connected to PLC(100.100.100.20)...
+2022-11-23 11:37:05.343  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 2048)
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ?[??
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ?[??
+2022-11-23 11:37:05.390  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:05.390  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:06.858  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:06.858  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 2048)
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:06.905  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:06.905  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 1024)
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡¾[??
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡¾[??
+2022-11-23 11:37:06.936  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:06.936  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=3f5b3f3f, errorInformationSection=null}
+2022-11-23 11:37:08.374  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:08.374  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 1024)
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:08.389  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:08.389  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:09.889  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:09.889  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:11.404  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 512)
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:11.437  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 2, cap: 512)
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¨¡P
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?P
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¨¡P
+2022-11-23 11:37:11.437  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:11.453  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=503f, errorInformationSection=null}
+2022-11-23 11:37:12.921  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:12.921  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:12.953  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:12.953  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 496)
+2022-11-23 11:37:12.953  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ?[??
+2022-11-23 11:37:12.968  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:12.968  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ?[??
+2022-11-23 11:37:12.968  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:12.968  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:14.437  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:14.437  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 496)
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:14.484  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:14.484  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 480)
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡¾[??
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡¾[??
+2022-11-23 11:37:14.530  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:14.530  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=3f5b3f3f, errorInformationSection=null}
+2022-11-23 11:37:15.946  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:15.946  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 480)
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:15.993  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:15.993  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:17.462  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:17.462  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:18.977  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:18.977  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 464)
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:19.008  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 2, cap: 464)
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¨¡P
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?P
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¨¡P
+2022-11-23 11:37:19.008  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:19.008  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=503f, errorInformationSection=null}
+2022-11-23 11:37:20.492  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:20.492  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 448)
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ?[??
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ?[??
+2022-11-23 11:37:20.539  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:20.539  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:22.007  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:22.007  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:22.039  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:22.039  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 448)
+2022-11-23 11:37:22.039  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:22.039  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:22.054  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:22.054  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:22.054  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 432)
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡¾[??
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡¾[??
+2022-11-23 11:37:22.070  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:22.070  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=3f5b3f3f, errorInformationSection=null}
+2022-11-23 11:37:23.523  INFO 66908 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-23 11:37:23.523  INFO 66908 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending Packet Check: true
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output Start----------
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : toString(): PooledUnsafeDirectByteBuf(ridx: 0, widx: 4, cap: 432)
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : US_ASCII: ¡Æ[??
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : UTF_8: ?[??
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ISO_8859_1: ¡Æ[??
+2022-11-23 11:37:23.554  WARN 66908 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data Output End----------
+2022-11-23 11:37:23.554  INFO 66908 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet Frame3EAsciiResponse{qHeader=AsciiResponseQHeader{networkNo=0, pcNo=255, requestDestinationModuleIoNo=1023, responseDataLength=0, completeCode=0}, data=5b3f3f3f, errorInformationSection=null}
+^C
+C:\Program Files\Java\jdk-17.0.5>2022-11-23 11:37:24.116  INFO 66908 --- [ionShutdownHook] twim.melsecplc.Melsec.MelsecController   : Destroy McProtocol TCP { Port: 5001 }

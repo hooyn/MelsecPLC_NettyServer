@@ -8,19 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Slf4j
 public class MelsecController {
     public static MelsecPlcHandler plc;
 
+    String IP_VALUE = "100.100.100.20";
+    //String IP_VALUE = "localhost";
+
     @PostConstruct
     private void start(){
         new Thread(() -> {
             try{
                 log.info("Start McProtocol TCP");
-                plc = new MelsecPlcHandler("localhost", 5001);
+                plc = new MelsecPlcHandler(IP_VALUE, 5001);
             } catch (Exception e){
                 e.printStackTrace();
             }
