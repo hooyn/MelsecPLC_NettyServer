@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.CharsetUtil;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twim.melsecplc.codec.ClientFrame3EAsciiMessageDecoder;
@@ -33,17 +34,14 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 @Getter
+@Slf4j
 public class MelsecPlcHandler {
-    
-    private static final Logger log = LoggerFactory.getLogger(MelsecPlcHandler.class);
+    private final MelsecClientConfig melsecClientConfig;
     private Thread plcThread;
     private final NioEventLoopGroup workerGroup = new NioEventLoopGroup();;
     private Channel channel;
-
-    private final MelsecClientConfig melsecClientConfig;
     private final Queue<FrameECommand> requestQueue = new LinkedList<>();
     private final Queue<FrameEResponse> responseQueue = new LinkedList<>();
-
     private final Lock lock = new ReentrantLock();
 
     public MelsecPlcHandler(String ip, int port){
@@ -54,7 +52,7 @@ public class MelsecPlcHandler {
         bootstrap.group(this.workerGroup)
                     .channel(NioSocketChannel.class)
                     .remoteAddress(this.melsecClientConfig.getAddress(), this.melsecClientConfig.getPort())
-                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3500)
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_LINGER, 0)
                     .option(ChannelOption.SO_KEEPALIVE, true)
@@ -75,14 +73,13 @@ public class MelsecPlcHandler {
 
         this.plcThread = new Thread(() -> {
 
-            log.info("Attempt connect to PLC({})...", ip);
             connect(bootstrap);
-            log.info("Connected to PLC({})...", ip);
+            log.info("Connected to PLC [IP: {}]", ip);
 
             while (true){
                 try {
                     batchRead("D45000", 1).get();
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
 
                     if (!isConnected()){
                         connect(bootstrap);
@@ -91,7 +88,7 @@ public class MelsecPlcHandler {
                     e.printStackTrace();
                 }
             }
-        }, "plc-" + ip);
+        }, "PLC-" + ip);
 
         this.plcThread.setDaemon(true);
         this.plcThread.start();
@@ -108,63 +105,49 @@ public class MelsecPlcHandler {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ee) {
-                log.warn("connect " + ee.getMessage());
+                log.warn("Connect Error: " + ee.getMessage());
             }
 
             connect(bootstrap);
         }
     }
 
-    public void remove(){
-        if (this.plcThread != null && !this.plcThread.isInterrupted())
-            this.plcThread.interrupt();
-        this.workerGroup.shutdownGracefully().awaitUninterruptibly();
-    }
-
-    public boolean isConnected(){
-
-        if (this.channel == null)
-            return false;
-        else
-            return this.channel.isActive();
-    }
-
     public CompletableFuture<String> batchRead(String address, int points){
 
         return requestAPI(new Frame3EAsciiCommand(
-            Function.BATCH_READ,
-            address,
-            points,
-            new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
-                this.melsecClientConfig.getPcNo(),
-                this.melsecClientConfig.getRequestDestinationModuleIoNo(),
-                this.melsecClientConfig.getRequestDestinationModuleStationNo())));
+                Function.BATCH_READ,
+                address,
+                points,
+                new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
+                        this.melsecClientConfig.getPcNo(),
+                        this.melsecClientConfig.getRequestDestinationModuleIoNo(),
+                        this.melsecClientConfig.getRequestDestinationModuleStationNo())));
     }
 
     public CompletableFuture<String> batchWrite(String address, int points, ByteBuf data){
 
         return requestAPI(new Frame3EAsciiCommand(
-            Function.BATCH_WRITE,
-            address,
-            points,
-            data,
-            new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
-                this.melsecClientConfig.getPcNo(),
-                this.melsecClientConfig.getRequestDestinationModuleIoNo(),
-                this.melsecClientConfig.getRequestDestinationModuleStationNo())))
-            .thenCompose(r -> batchRead(address, points));
+                Function.BATCH_WRITE,
+                address,
+                points,
+                data,
+                new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
+                        this.melsecClientConfig.getPcNo(),
+                        this.melsecClientConfig.getRequestDestinationModuleIoNo(),
+                        this.melsecClientConfig.getRequestDestinationModuleStationNo())))
+                .thenCompose(r -> batchRead(address, points));
     }
 
     private CompletableFuture<String> requestAPI(FrameECommand command){
-        
+
         Supplier<String> responseSupplier = () -> {
-            
+
             this.lock.lock();
 
             long start = System.currentTimeMillis();
             this.channel.writeAndFlush(command).addListener(listener -> {
                 if (!listener.isSuccess())
-                    log.error(this.melsecClientConfig.getAddress() + "- Request failed: " + command.getPrincipal().getAddress()
+                    log.error(this.melsecClientConfig.getAddress() + "- Request Failed: " + command.getPrincipal().getAddress()
                             + ", Thread- " + Thread.currentThread().getName());
                 else
                     this.requestQueue.add(command);
@@ -185,7 +168,7 @@ public class MelsecPlcHandler {
                     }
 
                     // TODO: 2022-11-22 TIME OUT 필요없을 시 제거
-                    if ((System.currentTimeMillis() - start) > 3500){
+                    if ((System.currentTimeMillis() - start) > 3000){
                         this.responseQueue.poll();
                         return "TIMEOUT";
                     }
@@ -194,7 +177,7 @@ public class MelsecPlcHandler {
                     Thread.sleep(1);
                 }
             } catch (InterruptedException e) {
-                return "Error: " + e.getMessage();
+                return "Request Error: " + e.getMessage();
             } finally {
                 this.lock.unlock();
             }
@@ -203,9 +186,22 @@ public class MelsecPlcHandler {
         return CompletableFuture.supplyAsync(responseSupplier);
     }
 
+    public boolean isConnected(){
+
+        if (this.channel == null)
+            return false;
+        else
+            return this.channel.isActive();
+    }
+
+    public void remove(){
+        if (this.plcThread != null && !this.plcThread.isInterrupted())
+            this.plcThread.interrupt();
+        this.workerGroup.shutdownGracefully().awaitUninterruptibly();
+    }
+
     /**
      * PLC 에 명령 전달
-     * todo: 추후에 data format 맞춰서 보내기
      */
     public void sendCommand(){
 

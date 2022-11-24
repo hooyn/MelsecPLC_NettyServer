@@ -8,6 +8,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twim.melsecplc.core.message.Function;
@@ -20,11 +21,10 @@ import twim.melsecplc.core.utils.ByteBufUtilities;
 import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
+@Slf4j
 public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameEResponse> {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
     private final MelsecPlcHandler melsecPlcHandler;
-
     @Override
     public void channelRead0(ChannelHandlerContext ctx, FrameEResponse response){
 
@@ -33,12 +33,8 @@ public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameE
 
             if (command != null){
                 if (command.getPrincipal().getFunction() == Function.BATCH_READ){
-//                    int remaining = response.getData().readableBytes();
-//                    ByteBuf data = Unpooled.buffer(remaining);
-//                    data.writeBytes(response.getData());
-//                    response.setData(data);
                     if (command.getPrincipal().getDevice().getType() == UnitType.BIT){
-                        //이 코드에서 데이터를 0또는 1로 변경
+                        //이 코드에서 데이터를 0또는 1로 변경되어 주석 처리
                         //byte[] bytes = BinaryConverters.convertBinaryOnBitToBoolArray(ByteBufUtilities.readAllBytes(response.getData()), command.getPrincipal().getPoints());
                         //response.setData(Unpooled.wrappedBuffer(bytes));
                         int remaining = response.getData().readableBytes();
@@ -57,7 +53,7 @@ public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameE
             }
         } finally {
             ReferenceCountUtil.release(response);
-            log.warn("Response packet {}", response);
+            log.warn("Response Packet {}", response);
         }
     }
 

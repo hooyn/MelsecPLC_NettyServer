@@ -44,7 +44,7 @@ public class ClientFrameEMessageEncoder extends MessageToByteEncoder<FrameEComma
             msg.getQHeader().encode(out);
             out.writeBytes(commandBuf);
 
-            log.info(String.format("Sending packet %s", msg));
+            log.info(String.format("Request packet %s", msg));
         } finally {
             ReferenceCountUtil.release(msg.getPrincipal().getData());
         }

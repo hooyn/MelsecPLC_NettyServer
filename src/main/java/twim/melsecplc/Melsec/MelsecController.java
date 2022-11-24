@@ -13,22 +13,25 @@ import javax.annotation.PreDestroy;
 @Slf4j
 public class MelsecController {
     public static MelsecPlcHandler plc;
-
-    public final int port = 5001;
-
-    String IP_VALUE = "100.100.100.20";
-    //String IP_VALUE = "localhost";
+    private final int PORT = 5001;
+    //private final String IP_VALUE = "100.100.100.20";
+    private final String IP_VALUE = "localhost";
 
     @PostConstruct
     private void start(){
         new Thread(() -> {
             try{
-                log.info("Start MelsecPLC TCP");
-                plc = new MelsecPlcHandler(IP_VALUE, port);
+                log.info("Netty Server Open [IP: {}, Port: {}]", IP_VALUE, PORT);
+                plc = new MelsecPlcHandler(IP_VALUE, PORT);
             } catch (Exception e){
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    @PreDestroy
+    private void destroy(){
+        log.info("Netty Server Close [IP: {}, Port: {}]", IP_VALUE, PORT);
     }
 
     @GetMapping("/send")
@@ -41,8 +44,5 @@ public class MelsecController {
         }
     }
 
-    @PreDestroy
-    private void destroy(){
-        log.info("Destroy MelsecPLC TCP { Port: " + port + " }");
-    }
+
 }
