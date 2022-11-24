@@ -11,7 +11,7 @@ public class MelsecClientConfig {
 
     private String address;
     @Builder.Default
-    private int port = 5001;
+    private int port = 8972;
 
     @Builder.Default
     private int networkNo = 0x00;

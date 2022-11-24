@@ -14,6 +14,8 @@ import javax.annotation.PreDestroy;
 public class MelsecController {
     public static MelsecPlcHandler plc;
 
+    public final int port = 5001;
+
     String IP_VALUE = "100.100.100.20";
     //String IP_VALUE = "localhost";
 
@@ -21,8 +23,8 @@ public class MelsecController {
     private void start(){
         new Thread(() -> {
             try{
-                log.info("Start McProtocol TCP");
-                plc = new MelsecPlcHandler(IP_VALUE, 5001);
+                log.info("Start MelsecPLC TCP");
+                plc = new MelsecPlcHandler(IP_VALUE, port);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -41,6 +43,6 @@ public class MelsecController {
 
     @PreDestroy
     private void destroy(){
-        log.info("Destroy McProtocol TCP { Port: 5001 }");
+        log.info("Destroy MelsecPLC TCP { Port: " + port + " }");
     }
 }

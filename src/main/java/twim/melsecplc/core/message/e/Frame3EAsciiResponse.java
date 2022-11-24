@@ -2,6 +2,7 @@ package twim.melsecplc.core.message.e;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
+import io.netty.util.CharsetUtil;
 import twim.melsecplc.core.message.e.qheader.AbstractResponseQHeader;
 import twim.melsecplc.core.message.e.qheader.AsciiErrorInformationSection;
 import twim.melsecplc.core.message.e.qheader.AsciiResponseQHeader;
@@ -49,7 +50,7 @@ public class Frame3EAsciiResponse extends AbstractFrameEResponse {
     public String toString() {
         return "Frame3EAsciiResponse{" +
             "qHeader=" + getQHeader() +
-            ", data=" + (getData() != null ? ByteBufUtil.hexDump(getData()) : null) +
+            ", data=" + (getData() != null ? getData().toString(CharsetUtil.UTF_8) + " / raw: " + ByteBufUtil.hexDump(getData()) : null) +
             ", errorInformationSection=" + errorInformationSection +
             '}';
     }

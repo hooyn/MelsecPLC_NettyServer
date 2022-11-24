@@ -1,9 +1,11 @@
 package twim.melsecplc.Melsec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import twim.melsecplc.core.message.e.FrameECommand;
 import twim.melsecplc.core.message.e.FrameEResponse;
 import twim.melsecplc.core.utils.BinaryConverters;
 import twim.melsecplc.core.utils.ByteBufUtilities;
+
+import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameEResponse> {
@@ -29,10 +33,18 @@ public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameE
 
             if (command != null){
                 if (command.getPrincipal().getFunction() == Function.BATCH_READ){
+//                    int remaining = response.getData().readableBytes();
+//                    ByteBuf data = Unpooled.buffer(remaining);
+//                    data.writeBytes(response.getData());
+//                    response.setData(data);
                     if (command.getPrincipal().getDevice().getType() == UnitType.BIT){
-                        byte[] bytes = BinaryConverters.convertBinaryOnBitToBoolArray(
-                                ByteBufUtilities.readAllBytes(response.getData()), command.getPrincipal().getPoints());
-                        response.setData(Unpooled.wrappedBuffer(bytes));
+                        //이 코드에서 데이터를 0또는 1로 변경
+                        //byte[] bytes = BinaryConverters.convertBinaryOnBitToBoolArray(ByteBufUtilities.readAllBytes(response.getData()), command.getPrincipal().getPoints());
+                        //response.setData(Unpooled.wrappedBuffer(bytes));
+                        int remaining = response.getData().readableBytes();
+                        ByteBuf data = Unpooled.buffer(remaining);
+                        ByteBufUtilities.swapLEToBE(data, response.getData());
+                        response.setData(data);
                     }
                     else {
                         int remaining = response.getData().readableBytes();
@@ -45,7 +57,7 @@ public class NettySocketClientHandler extends SimpleChannelInboundHandler<FrameE
             }
         } finally {
             ReferenceCountUtil.release(response);
-            log.info("Response packet {}", response);
+            log.warn("Response packet {}", response);
         }
     }
 

@@ -14,6 +14,7 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twim.melsecplc.codec.ClientFrame3EAsciiMessageDecoder;
+import twim.melsecplc.codec.ClientFrame3EStringMessageDecoder;
 import twim.melsecplc.codec.ClientFrameEMessageEncoder;
 import twim.melsecplc.codec.Frame3EAsciiByteDecoder;
 import twim.melsecplc.core.MelsecClientOptions;
@@ -26,6 +27,7 @@ import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
@@ -52,7 +54,7 @@ public class MelsecPlcHandler {
         bootstrap.group(this.workerGroup)
                     .channel(NioSocketChannel.class)
                     .remoteAddress(this.melsecClientConfig.getAddress(), this.melsecClientConfig.getPort())
-                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1500)
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3500)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_LINGER, 0)
                     .option(ChannelOption.SO_KEEPALIVE, true)
@@ -65,7 +67,7 @@ public class MelsecPlcHandler {
                             ChannelPipeline pipeline = ch.pipeline();
                             // handler setting
                             pipeline.addLast(ClientFrameEMessageEncoder.INSTANCE);
-                            pipeline.addLast(new ClientFrame3EAsciiMessageDecoder());
+                            pipeline.addLast(new ClientFrame3EStringMessageDecoder());
                             pipeline.addLast(new Frame3EAsciiByteDecoder());
                             pipeline.addLast(new NettySocketClientHandler(MelsecPlcHandler.this));
                         }
@@ -74,19 +76,13 @@ public class MelsecPlcHandler {
         this.plcThread = new Thread(() -> {
 
             log.info("Attempt connect to PLC({})...", ip);
-
             connect(bootstrap);
-
             log.info("Connected to PLC({})...", ip);
-            //log.info(batchRead("D45010", 1).get());
 
             while (true){
                 try {
-                    batchRead("D45000", 2).get();
-
-                    // TODO: 2022-11-22 PLC의 D45000 값을 몇초에 한번 씩 변경할지에 따라 정하기
-                    Thread.sleep(1500);
-
+                    batchRead("D45000", 1).get();
+                    Thread.sleep(5000);
 
                     if (!isConnected()){
                         connect(bootstrap);
@@ -168,7 +164,7 @@ public class MelsecPlcHandler {
             long start = System.currentTimeMillis();
             this.channel.writeAndFlush(command).addListener(listener -> {
                 if (!listener.isSuccess())
-                    log.info(this.melsecClientConfig.getAddress() + "- Request failed: " + command.getPrincipal().getAddress()
+                    log.error(this.melsecClientConfig.getAddress() + "- Request failed: " + command.getPrincipal().getAddress()
                             + ", Thread- " + Thread.currentThread().getName());
                 else
                     this.requestQueue.add(command);
@@ -177,7 +173,7 @@ public class MelsecPlcHandler {
             try {
                 while (true){
                     if (this.responseQueue.size() > 0){
-                        log.info(this.melsecClientConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
+                        log.warn(this.melsecClientConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
                                 + ", Thread- " + Thread.currentThread().getName());
 
                         FrameEResponse response = this.responseQueue.poll();
@@ -189,8 +185,11 @@ public class MelsecPlcHandler {
                     }
 
                     // TODO: 2022-11-22 TIME OUT 필요없을 시 제거
-                    if ((System.currentTimeMillis() - start) > 1)
+                    if ((System.currentTimeMillis() - start) > 3500){
+                        this.responseQueue.poll();
                         return "TIMEOUT";
+                    }
+
 
                     Thread.sleep(1);
                 }

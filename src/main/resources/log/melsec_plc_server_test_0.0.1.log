@@ -1,0 +1,155 @@
+
+C:\Program Files\Java\jdk-17.0.5>java -jar C:\Users\user\Desktop\melsec_plc_server_test_0.0.1.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2022-11-24 10:40:16.802  INFO 76868 --- [           main] twim.melsecplc.MelsecPlcApplication      : Starting MelsecPlcApplication v0.0.1-SNAPSHOT using Java 17.0.5 on DESKTOP-GJRCHMS with PID 76868 (C:\Users\user\Desktop\melsec_plc_server_test_0.0.1.jar started by user in C:\Program Files\Java\jdk-17.0.5)
+2022-11-24 10:40:16.807  INFO 76868 --- [           main] twim.melsecplc.MelsecPlcApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-11-24 10:40:17.452  INFO 76868 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-11-24 10:40:17.452  INFO 76868 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-11-24 10:40:17.452  INFO 76868 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2022-11-24 10:40:17.499  INFO 76868 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-11-24 10:40:17.499  INFO 76868 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 660 ms
+2022-11-24 10:40:17.546  INFO 76868 --- [       Thread-1] twim.melsecplc.Melsec.MelsecController   : Start MelsecPLC TCP
+2022-11-24 10:40:17.645  INFO 76868 --- [-100.100.100.20] twim.melsecplc.Melsec.MelsecPlcHandler   : Attempt connect to PLC(100.100.100.20)...
+2022-11-24 10:40:17.741  INFO 76868 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-24 10:40:17.741  INFO 76868 --- [           main] twim.melsecplc.MelsecPlcApplication      : Started MelsecPlcApplication in 1.214 seconds (JVM running for 1.468)
+2022-11-24 10:40:17.772  INFO 76868 --- [-100.100.100.20] twim.melsecplc.Melsec.MelsecPlcHandler   : Connected to PLC(100.100.100.20)...
+2022-11-24 10:40:17.806  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45010', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:17.857  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:17.858  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:17.858  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:17.859  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 71, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:19.875  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45000', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:19.910  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:19.911  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:19.911  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:19.913  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 39, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:19.944  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:19.944  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:21.928  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45500', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:21.974  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:21.975  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:21.975  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:21.976  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 48, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:23.991  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45010', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:29.498  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45000', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:29.534  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:29.534  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:29.535  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:29.536  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 38, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:29.536  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?P]----------
+2022-11-24 10:40:29.536  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?P]----------
+2022-11-24 10:40:29.536  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 2, cap: 2)
+2022-11-24 10:40:31.551  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:31.551  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45500', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:39.362  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:39.362  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:39.362  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:41.346  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:41.346  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45010', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:41.377  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:41.377  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:41.377  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:41.424  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:41.424  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:43.361  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:43.361  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45000', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:43.392  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:43.392  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:43.392  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:45.376  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:45.376  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45500', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:47.391  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45010', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:47.437  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:47.437  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:47.438  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:47.440  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 49, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:47.440  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?P]----------
+2022-11-24 10:40:47.440  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?P]----------
+2022-11-24 10:40:47.440  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 2, cap: 2)
+2022-11-24 10:40:49.455  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:49.455  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45000', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:49.486  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:49.486  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:49.486  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:51.470  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:51.470  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45500', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:51.501  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:51.517  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:51.517  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:51.548  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:51.548  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:53.485  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:53.485  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45010', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:53.516  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:53.516  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:53.516  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:55.500  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:55.500  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45000', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:57.515  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45500', points=1, function=BATCH_READ, subcommand=1, data=}
+2022-11-24 10:40:57.553  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:57.553  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:57.554  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:40:57.556  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 41, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:57.556  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?P]----------
+2022-11-24 10:40:57.556  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?P]----------
+2022-11-24 10:40:57.556  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 2, cap: 2)
+2022-11-24 10:40:59.571  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:40:59.571  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45010', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:40:59.618  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:40:59.618  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:40:59.618  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:41:01.586  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:41:01.586  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45000', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:41:01.617  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:41:01.617  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:41:01.617  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:41:01.664  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:41:01.664  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:41:03.601  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:41:03.601  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='D45500', points=1, function=BATCH_READ, subcommand=0, data=}
+2022-11-24 10:41:03.632  WARN 76868 --- [ntLoopGroup-2-1] t.m.c.ClientFrame3EAsciiMessageDecoder   : ----------Data In [?[??]----------
+2022-11-24 10:41:03.632  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : ----------Data Out [?[??]----------
+2022-11-24 10:41:03.632  WARN 76868 --- [ntLoopGroup-2-1] NettySocketClientHandler                 : Response packet data UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 4, cap: 4)
+2022-11-24 10:41:05.616  WARN 76868 --- [onPool-worker-1] twim.melsecplc.Melsec.MelsecPlcHandler   : 100.100.100.20- Tact time: 0, Thread- ForkJoinPool.commonPool-worker-1
+2022-11-24 10:41:05.616  INFO 76868 --- [ntLoopGroup-2-1] t.m.codec.ClientFrameEMessageEncoder     : Sending packet principal AsciiPrincipal{address='M45010', points=1, function=BATCH_READ, subcommand=1, data=}
+^C
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>
+C:\Program Files\Java\jdk-17.0.5>2022-11-24 10:41:06.382  INFO 76868 --- [ionShutdownHook] twim.melsecplc.Melsec.MelsecController   : Destroy MelsecPLC TCP { Port: 5001 }
