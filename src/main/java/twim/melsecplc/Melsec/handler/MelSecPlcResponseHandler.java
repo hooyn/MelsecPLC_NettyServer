@@ -1,4 +1,4 @@
-package twim.melsecplc.melsec;
+package twim.melsecplc.melsec.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

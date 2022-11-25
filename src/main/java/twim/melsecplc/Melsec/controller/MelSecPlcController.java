@@ -1,10 +1,11 @@
-package twim.melsecplc.melsec;
+package twim.melsecplc.melsec.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import twim.melsecplc.melsec.handler.MelSecPlcHandler;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

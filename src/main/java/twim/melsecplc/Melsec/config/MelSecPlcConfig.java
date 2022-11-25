@@ -1,4 +1,4 @@
-package twim.melsecplc.melsec;
+package twim.melsecplc.melsec.config;
 
 import lombok.Builder;
 import lombok.Getter;

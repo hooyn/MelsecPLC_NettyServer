@@ -1,4 +1,4 @@
-package twim.melsecplc.melsec;
+package twim.melsecplc.melsec.handler;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import twim.melsecplc.melsec.config.MelSecPlcConfig;
 import twim.melsecplc.setting.codec.ClientFrame3EBinaryMessageDecoder;
 import twim.melsecplc.setting.codec.ClientFrameEMessageEncoder;
 import twim.melsecplc.setting.codec.Frame3EBinaryByteDecoder;
