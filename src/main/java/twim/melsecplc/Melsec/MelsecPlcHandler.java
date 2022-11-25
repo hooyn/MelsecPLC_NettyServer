@@ -1,4 +1,4 @@
-package twim.melsecplc.Melsec;
+package twim.melsecplc.melsec;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -8,23 +8,17 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.CharsetUtil;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import twim.melsecplc.codec.ClientFrame3EAsciiMessageDecoder;
-import twim.melsecplc.codec.ClientFrame3EStringMessageDecoder;
-import twim.melsecplc.codec.ClientFrameEMessageEncoder;
-import twim.melsecplc.codec.Frame3EAsciiByteDecoder;
-import twim.melsecplc.core.MelsecClientOptions;
-import twim.melsecplc.core.message.Function;
-import twim.melsecplc.core.message.e.Frame3EAsciiCommand;
-import twim.melsecplc.core.message.e.FrameECommand;
-import twim.melsecplc.core.message.e.FrameEResponse;
+import twim.melsecplc.setting.codec.ClientFrame3EBinaryMessageDecoder;
+import twim.melsecplc.setting.codec.ClientFrameEMessageEncoder;
+import twim.melsecplc.setting.codec.Frame3EBinaryByteDecoder;
+import twim.melsecplc.setting.core.MelsecClientOptions;
+import twim.melsecplc.setting.core.message.Function;
+import twim.melsecplc.setting.core.message.e.Frame3EBinaryCommand;
+import twim.melsecplc.setting.core.message.e.FrameECommand;
+import twim.melsecplc.setting.core.message.e.FrameEResponse;
 
-import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
@@ -35,8 +29,8 @@ import java.util.function.Supplier;
 
 @Getter
 @Slf4j
-public class MelsecPlcHandler {
-    private final MelsecClientConfig melsecClientConfig;
+public class MelSecPlcHandler {
+    private final MelSecPlcConfig melSecPlcConfig;
     private Thread plcThread;
     private final NioEventLoopGroup workerGroup = new NioEventLoopGroup();;
     private Channel channel;
@@ -44,15 +38,15 @@ public class MelsecPlcHandler {
     private final Queue<FrameEResponse> responseQueue = new LinkedList<>();
     private final Lock lock = new ReentrantLock();
 
-    public MelsecPlcHandler(String ip, int port){
+    public MelSecPlcHandler(String ip, int port){
         
-        this.melsecClientConfig = MelsecClientConfig.builder().address(ip).port(port).build();
+        this.melSecPlcConfig = MelSecPlcConfig.builder().address(ip).port(port).build();
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(this.workerGroup)
                     .channel(NioSocketChannel.class)
-                    .remoteAddress(this.melsecClientConfig.getAddress(), this.melsecClientConfig.getPort())
-                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000)
+                    .remoteAddress(this.melSecPlcConfig.getAddress(), this.melSecPlcConfig.getPort())
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_LINGER, 0)
                     .option(ChannelOption.SO_KEEPALIVE, true)
@@ -65,21 +59,30 @@ public class MelsecPlcHandler {
                             ChannelPipeline pipeline = ch.pipeline();
                             // handler setting
                             pipeline.addLast(ClientFrameEMessageEncoder.INSTANCE);
-                            pipeline.addLast(new ClientFrame3EStringMessageDecoder());
-                            pipeline.addLast(new Frame3EAsciiByteDecoder());
-                            pipeline.addLast(new NettySocketClientHandler(MelsecPlcHandler.this));
+                            pipeline.addLast(new ClientFrame3EBinaryMessageDecoder());
+                            pipeline.addLast(new Frame3EBinaryByteDecoder());
+                            pipeline.addLast(new MelSecPlcResponseHandler(MelSecPlcHandler.this));
                         }
                     });
 
         this.plcThread = new Thread(() -> {
 
             connect(bootstrap);
+
+            try {
+                batchRead("D45010", 1).get();
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
             log.info("Connected to PLC [IP: {}]", ip);
 
             while (true){
                 try {
                     batchRead("D45000", 1).get();
-                    Thread.sleep(3000);
+                    Thread.sleep(500);
 
                     if (!isConnected()){
                         connect(bootstrap);
@@ -114,27 +117,27 @@ public class MelsecPlcHandler {
 
     public CompletableFuture<String> batchRead(String address, int points){
 
-        return requestAPI(new Frame3EAsciiCommand(
+        return requestAPI(new Frame3EBinaryCommand(
                 Function.BATCH_READ,
                 address,
                 points,
-                new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
-                        this.melsecClientConfig.getPcNo(),
-                        this.melsecClientConfig.getRequestDestinationModuleIoNo(),
-                        this.melsecClientConfig.getRequestDestinationModuleStationNo())));
+                new MelsecClientOptions(this.melSecPlcConfig.getNetworkNo(),
+                        this.melSecPlcConfig.getPcNo(),
+                        this.melSecPlcConfig.getRequestDestinationModuleIoNo(),
+                        this.melSecPlcConfig.getRequestDestinationModuleStationNo())));
     }
 
     public CompletableFuture<String> batchWrite(String address, int points, ByteBuf data){
 
-        return requestAPI(new Frame3EAsciiCommand(
+        return requestAPI(new Frame3EBinaryCommand(
                 Function.BATCH_WRITE,
                 address,
                 points,
                 data,
-                new MelsecClientOptions(this.melsecClientConfig.getNetworkNo(),
-                        this.melsecClientConfig.getPcNo(),
-                        this.melsecClientConfig.getRequestDestinationModuleIoNo(),
-                        this.melsecClientConfig.getRequestDestinationModuleStationNo())))
+                new MelsecClientOptions(this.melSecPlcConfig.getNetworkNo(),
+                        this.melSecPlcConfig.getPcNo(),
+                        this.melSecPlcConfig.getRequestDestinationModuleIoNo(),
+                        this.melSecPlcConfig.getRequestDestinationModuleStationNo())))
                 .thenCompose(r -> batchRead(address, points));
     }
 
@@ -147,7 +150,7 @@ public class MelsecPlcHandler {
             long start = System.currentTimeMillis();
             this.channel.writeAndFlush(command).addListener(listener -> {
                 if (!listener.isSuccess())
-                    log.error(this.melsecClientConfig.getAddress() + "- Request Failed: " + command.getPrincipal().getAddress()
+                    log.error(this.melSecPlcConfig.getAddress() + "- Request Failed: " + command.getPrincipal().getAddress()
                             + ", Thread- " + Thread.currentThread().getName());
                 else
                     this.requestQueue.add(command);
@@ -156,7 +159,7 @@ public class MelsecPlcHandler {
             try {
                 while (true){
                     if (this.responseQueue.size() > 0){
-                        log.warn(this.melsecClientConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
+                        log.warn(this.melSecPlcConfig.getAddress() + "- Tact time: " + (System.currentTimeMillis() - start)
                                 + ", Thread- " + Thread.currentThread().getName());
 
                         FrameEResponse response = this.responseQueue.poll();
