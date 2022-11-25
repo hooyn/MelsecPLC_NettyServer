@@ -91,7 +91,7 @@ I have referred to the link at https://github.com/netty
 
 Success
 
-```scala
+```prolog
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -267,9 +267,7 @@ C:\Program Files\Java\jdk-17.0.5>2022-11-23 11:37:24.116  INFO 66908 --- [ionShu
 
 ### **→ 최종 ASCII 에서 Binary로 데이터 형식을 변경해주니까 됐습니다!**
 
-```java
-**C:\*********\melsecPlc-0.0.1-SNAPSHOT_ver2.jar
-
+```prolog
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
